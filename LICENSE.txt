@@ -1,0 +1,42 @@
+# Thamarat ERP License Agreement
+
+## Commercial License
+
+Copyright (c) 2026 NexaGuard_Ye AI Solutions
+
+This software is proprietary and confidential. Unauthorized copying, distribution, 
+or use of this software, via any medium, is strictly prohibited.
+
+## Usage Terms
+
+This software is licensed for use by organizations that have purchased a valid license 
+from NexaGuard_Ye AI Solutions. By using this software, you agree to:
+
+1. Use this software only for legitimate business purposes
+2. Not decompile, reverse engineer, or disassemble the software
+3. Not share your license key or provide access to unauthorized parties
+4. Maintain the confidentiality of the software and its documentation
+
+## License Types
+
+- **Trial License**: Free for 30 days, limited functionality
+- **Professional License**: For single organization deployment
+- **Enterprise License**: For multi-organization deployment
+
+## Warranty Disclaimer
+
+THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+## Limitation of Liability
+
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES 
+OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+For licensing inquiries:
+📧 Email: sales@nexaguard-ye.com
+🌐 Website: https://nexaguard-ye.com

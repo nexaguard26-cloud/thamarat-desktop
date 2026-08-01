@@ -1,0 +1,42 @@
+# Thamarat ERP - Docker Compose for Local Deployment
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: thamarat-backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - thamarat-data:/root/.thamarat
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+    restart: unless-stopped
+    networks:
+      - thamarat-network
+
+  # Frontend (for development - production uses Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: thamarat-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - thamarat-network
+
+volumes:
+  thamarat-data:
+    driver: local
+
+networks:
+  thamarat-network:
+    driver: bridge
