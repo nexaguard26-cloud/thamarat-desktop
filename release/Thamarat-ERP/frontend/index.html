@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thamarat ERP - نظام محاسبة المنظمات الإنسانية</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            max-width: 450px;
+            width: 90%;
+        }
+        .header {
+            background: linear-gradient(135deg, #1890ff, #096dd9);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 5px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        .body { padding: 40px 30px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #1890ff;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1890ff, #096dd9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: scale(1.02); }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .status.loading { background: #fff3cd; color: #856404; }
+        .footer {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        .info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .info h3 { margin-bottom: 15px; color: #333; }
+        .info p { margin-bottom: 10px; color: #666; font-size: 14px; }
+        .info code { 
+            background: #e9ecef; 
+            padding: 2px 6px; 
+            border-radius: 4px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🌴</div>
+            <h1>Thamarat ERP</h1>
+            <p>نظام محاسبة المنظمات الإنسانية</p>
+        </div>
+        <div class="body">
+            <div id="loginForm">
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="email" value="admin@thamarat.local" placeholder="أدخل البريد الإلكتروني">
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="password" value="Admin@123" placeholder="أدخل كلمة المرور">
+                </div>
+                <button class="btn" onclick="login()">تسجيل الدخول</button>
+                <div id="status" class="status"></div>
+            </div>
+            <div id="dashboard" style="display:none;">
+                <h2 style="text-align:center; margin-bottom:20px;">🎉 تم تسجيل الدخول بنجاح!</h2>
+                <div class="info">
+                    <h3>📋 معلومات النظام</h3>
+                    <p><strong>الإصدار:</strong> 1.0.0</p>
+                    <p><strong>الترخيص:</strong> Trial (30 يوم)</p>
+                    <p><strong>Backend:</strong> <span id="backendStatus">✓ متصل</span></p>
+                    <p><strong>قاعدة البيانات:</strong> SQLite</p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+                    <p style="color:#1890ff;"><strong>✅ النظام جاهز للاستخدام!</strong></p>
+                    <p>للحصول على تجربة كاملة، تأكد من:</p>
+                    <p>1. تشغيل <code>ThamaratBackend.exe</code></p>
+                    <p>2. فتح المتصفح على <code>http://localhost:5000</code></p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">© 2026 NexaGuard_Ye AI Solutions</div>
+    </div>
+    <script>
+        async function login() {
+            const status = document.getElementById('status');
+            status.style.display = 'block';
+            status.className = 'status loading';
+            status.textContent = 'جاري الاتصال بالخادم...';
+            try {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'username=' + encodeURIComponent(email) + '&password=' + encodeURIComponent(password)
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    status.className = 'status success';
+                    status.textContent = '✓ تم تسجيل الدخول بنجاح!';
+                    document.getElementById('loginForm').style.display = 'none';
+                    document.getElementById('dashboard').style.display = 'block';
+                } else {
+                    throw new Error('بيانات الدخول غير صحيحة');
+                }
+            } catch (error) {
+                status.className = 'status error';
+                status.textContent = '⚠️ ' + error.message + ' - تأكد من تشغيل Backend';
+            }
+        }
+        if (localStorage.getItem('token')) {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
