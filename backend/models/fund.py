@@ -2,7 +2,7 @@
 Fund Accounting Models
 """
 
-from sqlalchemy import Column, String, Date, DateTime, Numeric, Text, ForeignKey, Integer
+from sqlalchemy import Column, String, Date, DateTime, Numeric, Text, ForeignKey, Integer, Boolean
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from .database import Base
@@ -19,8 +19,7 @@ class Donor(Base):
     contact_email = Column(String)
     contact_phone = Column(String)
     address = Column(Text)
-    is_active = Column(Boolean, default=True) if hasattr(Boolean, '__class__') else Column(String, default='true')
-    is_active = Column(String, default='true')
+    is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
