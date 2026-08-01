@@ -1,0 +1,47 @@
+name: Build Windows EXE Installer
+
+on:
+  push:
+    tags:
+      - 'v*' # يتم البناء تلقائياً عند إنشاء Tag إصدار جديد مثل v1.0.0
+  workflow_dispatch: # يتيح لك تشغيل البناء يدوياً بنقرة زر من GitHub
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      # 1. جلب الكود من GitHub
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. إعداد Node.js لبناء الـ Frontend والـ Electron
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # 3. بناء واجهة React Frontend
+      - name: Install & Build Frontend
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      # 4. تثبيت مكتبات Electron وتجميع التطبيق
+      - name: Install Electron Dependencies
+        run: |
+          npm install electron electron-builder --save-dev
+
+      # 5. تجميع الملف التثبيتي عبر Inno Setup باستخدام ملف thamarat.iss الخاص بك
+      - name: Compile Inno Setup Script
+        uses: DisiAlbin/Inno-Setup-Action@v1
+        with:
+          filepath: 'installer/thamarat.iss'
+
+      # 6. رفع ملف الـ EXE الناتج ليكون متاحاً للتنزيل
+      - name: Upload EXE Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Thamarat-Installer
+          path: installer/Output/*.exe # تأكد أن هذا هو مجلد المخرجات المكتوب في ملف thamarat.iss
